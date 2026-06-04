@@ -1,0 +1,112 @@
+* {
+    font-family: monospace;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #111111;
+    color: #dddddd;
+    border-bottom: 1px solid #222222;
+}
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 8px;
+    background: transparent;
+    color: #777777;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: #ffffff;
+    background: #222222;
+}
+
+#workspaces button.urgent {
+    color: #cc3333;
+}
+
+#workspaces button:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Mode (resize, etc) */
+#mode {
+    color: #dddddd;
+    background: #222222;
+    padding: 0 8px;
+}
+
+/* Window title */
+#window {
+    color: #888888;
+    padding: 0 8px;
+}
+
+/* Módulos derecha */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#pulseaudio,
+#network,
+#clock,
+#tray {
+    padding: 0 10px;
+    color: #aaaaaa;
+}
+
+/* Hover genérico */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#battery:hover,
+#pulseaudio:hover,
+#network:hover,
+#clock:hover {
+    color: #ffffff;
+    background: #1a1a1a;
+}
+
+/* Estados especiales */
+#battery.charging {
+    color: #aaaaaa;
+}
+
+#battery.warning:not(.charging) {
+    color: #cc9900;
+}
+
+#battery.critical:not(.charging) {
+    color: #cc3333;
+}
+
+#temperature.critical {
+    color: #cc3333;
+}
+
+#network.disconnected {
+    color: #cc3333;
+}
+
+#pulseaudio.muted {
+    color: #444444;
+}
+
+#tray {
+    padding: 0 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

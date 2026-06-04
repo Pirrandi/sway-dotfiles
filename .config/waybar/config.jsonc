@@ -1,0 +1,91 @@
+{
+    "height": 28,
+    "spacing": 8,
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "backlight",
+        "battery",
+        "pulseaudio",
+        "network",
+        "clock",
+        "tray"
+    ],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "format": "{name}"
+    },
+
+    "sway/mode": {
+        "format": " {}"
+    },
+
+    "sway/window": {
+        "max-length": 60
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "cpu {usage}%",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": "mem {}%"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C",
+        "format-critical": "{temperatureC}°C !"
+    },
+
+    "backlight": {
+        "format": "bri {percent}%"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "bat {capacity}%",
+        "format-charging": "bat {capacity}% +",
+        "format-plugged": "bat {capacity}% =",
+        "format-critical": "bat {capacity}% !"
+    },
+
+    "pulseaudio": {
+        "format": "vol {volume}%",
+        "format-muted": "vol muted",
+        "on-click": "pavucontrol"
+    },
+
+    "network": {
+        "format-wifi": "{essid} {signalStrength}%",
+        "format-ethernet": "{ipaddr}",
+        "format-disconnected": "disconnected",
+        "tooltip-format": "{ifname} {ipaddr}"
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+
+    "tray": {
+        "spacing": 8
+    }
+}

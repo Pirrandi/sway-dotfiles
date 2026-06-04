@@ -1,0 +1,13 @@
+set $flatpak_data /var/lib/flatpak/exports/share
+# Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+set $menu wofi --show drun
+
+# Módulos
+include ~/.config/sway/config.d/*
+include /etc/sway/config.d/*

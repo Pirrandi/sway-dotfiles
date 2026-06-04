@@ -1,0 +1,42 @@
+# Posición
+anchor=top-right
+margin=10
+padding=10,14
+
+# Tamaño
+width=300
+height=100
+max-visible=5
+
+# Estilo
+background-color=#111111
+text-color=#cccccc
+border-color=#333333
+border-size=1
+border-radius=0
+
+# Fuente
+font=JetBrainsMono Nerd Font 11
+
+# Tiempo
+default-timeout=5000
+ignore-timeout=0
+
+# Urgencia baja
+[urgency=low]
+background-color=#111111
+text-color=#888888
+border-color=#222222
+
+# Urgencia normal
+[urgency=normal]
+background-color=#111111
+text-color=#cccccc
+border-color=#333333
+
+# Urgencia crítica
+[urgency=critical]
+background-color=#1a0000
+text-color=#cc3333
+border-color=#cc3333
+default-timeout=0

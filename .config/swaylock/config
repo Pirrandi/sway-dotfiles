@@ -1,0 +1,51 @@
+# Fondo
+screenshots
+effect-blur=9x5
+effect-vignette=0.6:0.6
+effect-greyscale
+color=111111
+
+# Reloj
+clock
+indicator
+timestr=%H:%M
+datestr=%a, %d %b
+
+# Anillo
+ring-color=333333
+ring-ver-color=444444
+ring-wrong-color=555555
+ring-clear-color=333333
+
+# Interior
+inside-color=11111188
+inside-ver-color=11111188
+inside-wrong-color=11111188
+inside-clear-color=11111188
+
+# Líneas
+line-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-clear-color=00000000
+separator-color=00000000
+
+# Texto
+text-color=888888
+text-ver-color=888888
+text-wrong-color=cc3333
+text-clear-color=888888
+text-caps-lock-color=888888
+
+# Highlights
+key-hl-color=aaaaaa
+bs-hl-color=555555
+
+# Indicador
+indicator-radius=80
+indicator-thickness=3
+
+# Opciones
+ignore-empty-password
+show-failed-attempts
+daemonize
