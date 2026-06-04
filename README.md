@@ -1,8 +1,14 @@
-# dotfiles
+# sway-dotfiles
 
 Configuración personal para Arch Linux + Sway.
 
+## Preview
+
+![Desktop](assets/sway-preview.png)
+![Lockscreen](assets/lockscreen-preview.png)
+
 ## Stack
+
 - **WM**: Sway (Wayland)
 - **Bar**: Waybar
 - **Launcher**: Wofi
@@ -14,8 +20,8 @@ Configuración personal para Arch Linux + Sway.
 ## Instalación
 
 ```bash
-git clone https://github.com/pirrandi/dotfiles.git
-cd dotfiles
+git clone https://github.com/Pirrandi/sway-dotfiles.git
+cd sway-dotfiles
 chmod +x install.sh
 ./install.sh
 ```
@@ -31,4 +37,9 @@ chmod +x install.sh
 | `Super+Shift+L` | Lockscreen |
 | `Super+Print` | Screenshot área |
 | `Print` | Screenshot completo |
-# sway-dotfiles
+| `Super+1-9` | Cambiar workspace |
+| `Super+Shift+1-9` | Mover ventana a workspace |
+| `Super+H/J/K/L` | Navegar ventanas |
+| `Super+Shift+H/J/K/L` | Mover ventanas |
+| `Super+F` | Fullscreen |
+| `Super+Shift+Space` | Floating toggle |
