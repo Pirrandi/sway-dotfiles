@@ -31,3 +31,4 @@ chmod +x install.sh
 | `Super+Shift+L` | Lockscreen |
 | `Super+Print` | Screenshot área |
 | `Print` | Screenshot completo |
+# sway-dotfiles
