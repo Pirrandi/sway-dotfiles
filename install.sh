@@ -61,16 +61,13 @@ fi
 # ZSH
 # ============================================
 echo "==> Configurando zsh..."
-sleep 1
 
 if [ ! -d ~/powerlevel10k ]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 fi
 
-# Plugins zsh
 sudo pacman -S --needed zsh-autosuggestions zsh-history-substring-search
 
-# Shell por defecto
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
   chsh -s /usr/bin/zsh
 fi
@@ -78,39 +75,64 @@ fi
 clear
 
 # ============================================
-# DOTFILES
+# SYMLINKS
 # ============================================
-echo "==> Copiando configs..."
-mkdir -p $HOME/.config
-mkdir -p $HOME/Pictures
-mkdir -p $HOME/.config/environment.d
+echo "==> Creando symlinks..."
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/Pictures"
 
-# Configs
-for dir in sway waybar alacritty tmux wofi mako swaylock environment.d; do
+# Configs — symlink de cada directorio
+for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts; do
   if [ -d "$DOTFILES_DIR/.config/$dir" ]; then
-    echo "  -> $dir"
-    cp -r "$DOTFILES_DIR/.config/$dir" "$HOME/.config/"
-  else
-    echo "  WARN: $dir no encontrado"
+    target="$HOME/.config/$dir"
+    # Si ya existe como directorio real, preguntar antes de reemplazar
+    if [ -d "$target" ] && [ ! -L "$target" ]; then
+      echo "  WARN: $target ya existe como directorio. Haciendo backup -> ${target}.bak"
+      mv "$target" "${target}.bak"
+    fi
+    rm -f "$target"
+    ln -sf "$DOTFILES_DIR/.config/$dir" "$target"
+    echo "  -> ~/.config/$dir"
   fi
 done
 
 # Archivos home
-[ -f "$DOTFILES_DIR/.zshrc" ] && cp "$DOTFILES_DIR/.zshrc" "$HOME/"
-[ -f "$DOTFILES_DIR/.p10k.zsh" ] && cp "$DOTFILES_DIR/.p10k.zsh" "$HOME/"
+for f in .zshrc .p10k.zsh; do
+  if [ -f "$DOTFILES_DIR/$f" ]; then
+    [ -f "$HOME/$f" ] && [ ! -L "$HOME/$f" ] && mv "$HOME/$f" "$HOME/${f}.bak"
+    ln -sf "$DOTFILES_DIR/$f" "$HOME/$f"
+    echo "  -> ~/$f"
+  fi
+done
 
-# Wallpaper
+# ============================================
+# OUTPUT.CONF — config específica de máquina
+# ============================================
+OUTPUT_CONF="$HOME/.config/sway/config.d/output.conf"
+if [ ! -f "$OUTPUT_CONF" ]; then
+  cp "$DOTFILES_DIR/.config/sway/config.d/output.conf.example" "$OUTPUT_CONF"
+  echo ""
+  echo "  IMPORTANTE: Edita $OUTPUT_CONF con los nombres de tus monitores"
+  echo "  Ejecuta: swaymsg -t get_outputs"
+  echo ""
+fi
+
+# Scripts — asegurarse de que son ejecutables
+chmod +x "$HOME/.config/scripts/"*.sh 2>/dev/null || true
+
+# Contextos por defecto si no existen
+CONTEXTS_FILE="$HOME/.config/scripts/contexts.txt"
+if [ ! -f "$CONTEXTS_FILE" ]; then
+  echo -e "personal\nwork" > "$CONTEXTS_FILE"
+fi
+
+# ============================================
+# WALLPAPER
+# ============================================
 if [ ! -f "$HOME/Pictures/wallpaper.png" ]; then
   echo "==> Descargando wallpaper..."
   wget -q -O "$HOME/Pictures/wallpaper.png" \
     https://raw.githubusercontent.com/dharmx/walls/refs/heads/main/weirdcore/a_cat_looking_at_the_camera.png
-fi
-
-# Scripts
-if [ -d "$DOTFILES_DIR/scripts" ]; then
-  mkdir -p $HOME/.config/scripts
-  cp -r "$DOTFILES_DIR/scripts/"* "$HOME/.config/scripts/"
-  chmod +x "$HOME/.config/scripts/"*.sh 2>/dev/null || true
 fi
 
 # ============================================
@@ -152,7 +174,8 @@ echo " Próximos pasos:"
 echo "  1. Reinicia la sesión"
 echo "  2. Entra a Sway desde TTY: sway"
 echo "  3. Configura p10k: p10k configure"
+echo "  4. Ajusta monitores: ~/.config/sway/config.d/output.conf"
 if [ "$IS_VM" = true ]; then
-  echo "  4. Reinicia para aplicar drivers de VM"
+  echo "  5. Reinicia para aplicar drivers de VM"
 fi
 echo ""

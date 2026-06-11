@@ -110,3 +110,17 @@ window#waybar {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
 }
+
+#custom-claude {
+    color: #da7756;
+}
+
+#custom-ctx-workspaces {
+    color: #aaaaaa;
+    padding: 0 10px;
+}
+
+#custom-ctx-workspaces {
+    color: #aaaaaa;
+    padding: 0 10px;
+}

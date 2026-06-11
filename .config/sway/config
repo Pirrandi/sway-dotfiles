@@ -11,3 +11,4 @@ set $menu wofi --show drun
 # Módulos
 include ~/.config/sway/config.d/*
 include /etc/sway/config.d/*
+include ~/.config/sway/config.d/ctx-binds.conf
