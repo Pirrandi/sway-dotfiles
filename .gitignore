@@ -1,0 +1,8 @@
+# Configs específicas de máquina
+.config/sway/config.d/output.conf
+
+# Generado en runtime por ctx-menu.sh
+.config/sway/config.d/ctx-binds.conf
+
+# Estado de usuario (se regenera con defaults)
+.config/scripts/contexts.txt

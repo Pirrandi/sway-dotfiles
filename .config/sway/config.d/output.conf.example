@@ -1,0 +1,35 @@
+# Copia este archivo a output.conf y ajusta a tus monitores
+# Ejecuta: swaymsg -t get_outputs  para ver los nombres
+
+# Ejemplo: laptop con monitor externo
+# output HDMI-A-1 resolution 1920x1080 position 0,0
+# output eDP-1 resolution 1920x1080 position 1920,0 scale 1.0
+
+# Solo laptop
+# output eDP-1 resolution 1920x1080 position 0,0 scale 1.0
+
+output HDMI-A-2 resolution 1920x1080 position 0,0
+output eDP-1 resolution 1920x1080 position 1920,0 scale 1.1
+
+# Workspaces por pantalla
+workspace 10 output HDMI-A-2
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output eDP-1
+workspace 5 output eDP-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+
+workspace work:1 output eDP-1
+workspace work:2 output eDP-1
+workspace work:3 output eDP-1
+workspace work:4 output eDP-1
+workspace work:5 output eDP-1
+workspace personal:1 output eDP-1
+workspace personal:2 output eDP-1
+workspace personal:3 output eDP-1
+workspace personal:4 output eDP-1
+workspace personal:5 output eDP-1

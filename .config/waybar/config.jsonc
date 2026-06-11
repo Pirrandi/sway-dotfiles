@@ -1,15 +1,15 @@
 {
     "height": 28,
     "spacing": 8,
-
     "modules-left": [
-        "sway/workspaces",
+        "custom/ctx-workspaces",
         "sway/mode"
     ],
     "modules-center": [
         "sway/window"
     ],
     "modules-right": [
+        "custom/claude",
         "cpu",
         "memory",
         "temperature",
@@ -20,41 +20,52 @@
         "clock",
         "tray"
     ],
-
     "sway/workspaces": {
         "disable-scroll": true,
-        "format": "{name}"
+        "format": "{name}",
+        "format-icons": {
+            "work:1": "💼1",
+            "work:2": "💼2",
+            "work:3": "💼3",
+            "work:4": "💼4",
+            "work:5": "💼5",
+            "personal:1": "🏠1",
+            "personal:2": "🏠2",
+            "personal:3": "🏠3",
+            "personal:4": "🏠4",
+            "personal:5": "🏠5"
+        },
+        "format": "{icon}"
     },
-
     "sway/mode": {
         "format": " {}"
     },
-
     "sway/window": {
         "max-length": 60
     },
-
+    "custom/claude": {
+        "exec": "$HOME/Documents/scripts/claude_usage.sh",
+        "interval": 300,
+        "format": "{}",
+        "tooltip": false
+    },
     "cpu": {
         "interval": 5,
         "format": "cpu {usage}%",
         "tooltip": false
     },
-
     "memory": {
         "interval": 10,
         "format": "mem {}%"
     },
-
     "temperature": {
         "critical-threshold": 80,
         "format": "{temperatureC}°C",
         "format-critical": "{temperatureC}°C !"
     },
-
     "backlight": {
         "format": "bri {percent}%"
     },
-
     "battery": {
         "states": {
             "warning": 30,
@@ -65,27 +76,31 @@
         "format-plugged": "bat {capacity}% =",
         "format-critical": "bat {capacity}% !"
     },
-
     "pulseaudio": {
         "format": "vol {volume}%",
         "format-muted": "vol muted",
         "on-click": "pavucontrol"
     },
-
     "network": {
         "format-wifi": "{essid} {signalStrength}%",
         "format-ethernet": "{ipaddr}",
         "format-disconnected": "disconnected",
         "tooltip-format": "{ifname} {ipaddr}"
     },
-
     "clock": {
         "format": "{:%H:%M}",
         "format-alt": "{:%Y-%m-%d}",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
-
     "tray": {
         "spacing": 8
+    }
+,
+    "custom/ctx-workspaces": {
+        "exec": "$HOME/.config/scripts/ctx-workspaces.sh",
+        "interval": 1,
+        "signal": 1,
+        "format": "{}",
+        "tooltip": false
     }
 }
