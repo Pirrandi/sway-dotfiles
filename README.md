@@ -1,6 +1,6 @@
-# sway-dotfiles
+# sway-dotfiles (ultra-ligero)
 
-Configuración personal para Arch Linux + Sway.
+Configuración personal para Arch Linux + Sway con repositorios Black Arch.
 
 ## Preview
 
