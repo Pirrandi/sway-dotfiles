@@ -91,7 +91,8 @@
     "pulseaudio": {
         "format": "vol {volume}%",
         "format-muted": "vol muted",
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "on-click-right": "$HOME/.config/scripts/audio-output.sh"
     },
     "network": {
         "format-wifi": "{essid} {signalStrength}%",
