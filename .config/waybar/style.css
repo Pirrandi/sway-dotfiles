@@ -53,6 +53,7 @@ window#waybar {
 #temperature,
 #backlight,
 #battery,
+#bluetooth,
 #pulseaudio,
 #network,
 #clock,
@@ -67,6 +68,7 @@ window#waybar {
 #temperature:hover,
 #backlight:hover,
 #battery:hover,
+#bluetooth:hover,
 #pulseaudio:hover,
 #network:hover,
 #clock:hover {
@@ -96,6 +98,11 @@ window#waybar {
 }
 
 #pulseaudio.muted {
+    color: #444444;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
     color: #444444;
 }
 
