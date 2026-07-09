@@ -40,3 +40,7 @@ background-color=#1a0000
 text-color=#cc3333
 border-color=#cc3333
 default-timeout=0
+
+# Modo No Molestar — toggle desde el menú de addons (Supr+space)
+[mode=dnd]
+invisible=1

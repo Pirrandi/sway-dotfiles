@@ -11,25 +11,27 @@
 output HDMI-A-2 resolution 1920x1080 position 0,0
 output eDP-1 resolution 1920x1080 position 1920,0 scale 1.1
 
-# Workspaces por pantalla
-workspace 10 output HDMI-A-2
-workspace 1 output eDP-1
-workspace 2 output eDP-1
-workspace 3 output eDP-1
-workspace 4 output eDP-1
-workspace 5 output eDP-1
-workspace 6 output eDP-1
-workspace 7 output eDP-1
-workspace 8 output eDP-1
-workspace 9 output eDP-1
+# Workspaces por contexto — el nombre debe coincidir EXACTO con el cero-padding
+# que genera ~/.config/scripts/ws.sh (ej: personal:01, no personal:1), si no
+# la asignación de monitor queda muerta y sway decide solo.
+workspace personal:01 output eDP-1
+workspace personal:02 output eDP-1
+workspace personal:03 output eDP-1
+workspace personal:04 output eDP-1
+workspace personal:05 output eDP-1
+workspace personal:06 output eDP-1
+workspace personal:07 output eDP-1
+workspace personal:08 output eDP-1
+workspace personal:09 output eDP-1
+workspace personal:10 output HDMI-A-2
 
-workspace work:1 output eDP-1
-workspace work:2 output eDP-1
-workspace work:3 output eDP-1
-workspace work:4 output eDP-1
-workspace work:5 output eDP-1
-workspace personal:1 output eDP-1
-workspace personal:2 output eDP-1
-workspace personal:3 output eDP-1
-workspace personal:4 output eDP-1
-workspace personal:5 output eDP-1
+workspace work:01 output eDP-1
+workspace work:02 output eDP-1
+workspace work:03 output eDP-1
+workspace work:04 output eDP-1
+workspace work:05 output eDP-1
+workspace work:06 output eDP-1
+workspace work:07 output eDP-1
+workspace work:08 output eDP-1
+workspace work:09 output eDP-1
+workspace work:10 output HDMI-A-2
