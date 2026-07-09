@@ -10,7 +10,7 @@ dynamic_title = true
 
 [terminal.shell]
 program = "/usr/bin/tmux"
-args = ["new-session", "-f ~/.config/tmux/.tmux.conf"]
+args = ["new-session", "-f", "~/.config/tmux/tmux.conf"]
 
 [scrolling]
 history = 10000
