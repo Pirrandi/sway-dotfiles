@@ -17,6 +17,7 @@
         "battery",
         "bluetooth",
         "pulseaudio",
+        "custom/vpn",
         "network",
         "clock",
         "tray"
@@ -99,6 +100,14 @@
         "format-ethernet": "{ipaddr}",
         "format-disconnected": "disconnected",
         "tooltip-format": "{ifname} {ipaddr}"
+    },
+    "custom/vpn": {
+        "exec": "$HOME/.config/scripts/wg-status.sh status",
+        "return-type": "json",
+        "interval": 5,
+        "signal": 2,
+        "format": "{}",
+        "on-click": "$HOME/.config/scripts/wg-status.sh menu"
     },
     "clock": {
         "format": "{:%H:%M}",
