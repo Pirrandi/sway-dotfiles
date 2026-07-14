@@ -55,6 +55,7 @@ window#waybar {
 #battery,
 #bluetooth,
 #pulseaudio,
+#custom-vpn,
 #network,
 #clock,
 #tray {
@@ -95,6 +96,14 @@ window#waybar {
 
 #network.disconnected {
     color: #cc3333;
+}
+
+#custom-vpn.connected {
+    color: #33cc66;
+}
+
+#custom-vpn.disconnected {
+    color: #666666;
 }
 
 #pulseaudio.muted {
