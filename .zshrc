@@ -20,6 +20,9 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 # Keybindings
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '^[[1;5C' forward-word      # Ctrl+Derecha
+bindkey '^[[1;5D' backward-word     # Ctrl+Izquierda
+bindkey '^[[3~'   delete-char       # Supr
 
 # Autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#3a3a3a'

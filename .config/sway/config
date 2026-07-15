@@ -12,3 +12,4 @@ set $menu wofi --show drun
 include ~/.config/sway/config.d/*
 include /etc/sway/config.d/*
 include ~/.config/sway/config.d/ctx-binds.conf
+xwayland enable
