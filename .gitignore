@@ -6,3 +6,17 @@
 
 # Estado de usuario (se regenera con defaults)
 .config/scripts/contexts.txt
+
+# Claude Code — nunca versionar estado local ni credenciales
+.claude-config/.credentials.json
+.claude-config/history.jsonl
+.claude-config/projects/
+.claude-config/shell-snapshots/
+.claude-config/session-env/
+.claude-config/backups/
+.claude-config/tasks/
+.claude-config/file-history/
+.claude-config/image-cache/
+.claude-config/plugins/cache/
+.claude-config/plugins/data/
+.claude-config/plugins/marketplaces/

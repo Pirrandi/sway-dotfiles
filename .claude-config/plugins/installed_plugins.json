@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "plugins": {
+    "caveman@caveman": [
+      {
+        "scope": "user",
+        "installPath": "/home/pirra/.claude/plugins/cache/caveman/caveman/25d22f864ad6",
+        "version": "25d22f864ad6",
+        "installedAt": "2026-06-15T20:46:39.712Z",
+        "lastUpdated": "2026-06-15T20:46:39.712Z",
+        "gitCommitSha": "25d22f864ad68cc447a4cb93aefde918aa4aec9f"
+      }
+    ],
+    "engram@engram": [
+      {
+        "scope": "user",
+        "installPath": "/home/pirra/.claude/plugins/cache/engram/engram/0.1.1",
+        "version": "0.1.1",
+        "installedAt": "2026-07-10T20:25:31.868Z",
+        "lastUpdated": "2026-07-10T20:25:31.868Z",
+        "gitCommitSha": "be4b61384ee154abbdea2f8760a5f1e43dd595ab"
+      }
+    ]
+  }
+}

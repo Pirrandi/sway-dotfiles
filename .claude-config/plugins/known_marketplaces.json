@@ -1,0 +1,26 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/home/pirra/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-08-05T00:22:38.710Z"
+  },
+  "caveman": {
+    "source": {
+      "source": "github",
+      "repo": "JuliusBrussee/caveman"
+    },
+    "installLocation": "/home/pirra/.claude/plugins/marketplaces/caveman",
+    "lastUpdated": "2026-06-15T20:46:39.173Z"
+  },
+  "engram": {
+    "source": {
+      "source": "github",
+      "repo": "Gentleman-Programming/engram"
+    },
+    "installLocation": "/home/pirra/.claude/plugins/marketplaces/engram",
+    "lastUpdated": "2026-07-10T20:25:31.351Z"
+  }
+}
