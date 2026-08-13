@@ -6,6 +6,7 @@
 
 # Estado de usuario (se regenera con defaults)
 .config/scripts/contexts.txt
+.config/scripts/__pycache__/
 
 # Claude Code — nunca versionar estado local ni credenciales
 .claude-config/.credentials.json
