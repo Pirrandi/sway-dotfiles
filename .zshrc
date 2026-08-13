@@ -40,3 +40,10 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # bun
 [ -s "/home/pirra/.bun/_bun" ] && source "/home/pirra/.bun/_bun"
+
+# eza aliases
+alias ls='eza'
+alias ll='eza -lah --icons'
+alias la='eza -a --icons'
+alias lt='eza --tree --level=2 --icons'
+alias l='eza -l --icons'
