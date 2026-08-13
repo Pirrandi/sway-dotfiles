@@ -17,6 +17,7 @@
         "battery",
         "bluetooth",
         "pulseaudio",
+        "custom/mpris",
         "custom/vpn",
         "network",
         "clock",
@@ -46,10 +47,9 @@
         "max-length": 60
     },
     "custom/claude": {
-        "exec": "$HOME/Documents/scripts/claude_usage.sh",
+        "exec": "$HOME/.config/scripts/claude_usage.sh",
         "interval": 300,
-        "format": "{}",
-        "tooltip": false
+        "return-type": "json"
     },
     "cpu": {
         "interval": 5,
@@ -94,6 +94,13 @@
         "format-muted": "vol muted",
         "on-click": "pavucontrol",
         "on-click-right": "$HOME/.config/scripts/audio-output.sh"
+    },
+    "custom/mpris": {
+        "exec": "$HOME/.config/scripts/mpris-marquee.sh",
+        "return-type": "json",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "escape": true
     },
     "network": {
         "format-wifi": "{essid} {signalStrength}%",
