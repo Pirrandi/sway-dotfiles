@@ -43,6 +43,7 @@ sudo pacman -S --needed \
   grim slurp wl-clipboard \
   brightnessctl imv \
   ttf-jetbrains-mono-nerd ttf-font-awesome \
+  noto-fonts-emoji noto-fonts-extra \
   pipewire wireplumber \
   xdg-desktop-portal xdg-desktop-portal-wlr \
   nwg-look gnome-themes-extra \
@@ -82,7 +83,7 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/Pictures"
 
 # Configs — symlink de cada directorio
-for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts; do
+for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts fontconfig; do
   if [ -d "$DOTFILES_DIR/.config/$dir" ]; then
     target="$HOME/.config/$dir"
     # Si ya existe como directorio real, preguntar antes de reemplazar
