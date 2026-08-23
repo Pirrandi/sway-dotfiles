@@ -1,5 +1,12 @@
 # Copia este archivo a output.conf y ajusta a tus monitores
 # Ejecuta: swaymsg -t get_outputs  para ver los nombres
+#
+# TODO ESTE ARCHIVO ESTÁ COMENTADO A PROPÓSITO. Es una plantilla, no una config.
+# Antes las líneas de abajo estaban activas y sway las cargaba de verdad
+# (el include usaba `config.d/*`, sin filtrar extensión), así que aplicaba un
+# monitor HDMI-A-2 inexistente y 20 asignaciones de workspace que pisaban a las
+# de output.conf. Hoy el include filtra por *.conf, pero dejarlo comentado
+# evita que vuelva a morder si alguien afloja el glob.
 
 # Ejemplo: laptop con monitor externo
 # output HDMI-A-1 resolution 1920x1080 position 0,0
@@ -8,30 +15,30 @@
 # Solo laptop
 # output eDP-1 resolution 1920x1080 position 0,0 scale 1.0
 
-output HDMI-A-2 resolution 1920x1080 position 0,0
-output eDP-1 resolution 1920x1080 position 1920,0 scale 1.1
+# output HDMI-A-2 resolution 1920x1080 position 0,0
+# output eDP-1 resolution 1920x1080 position 1920,0 scale 1.1
 
 # Workspaces por contexto — el nombre debe coincidir EXACTO con el cero-padding
 # que genera ~/.config/scripts/ws.sh (ej: personal:01, no personal:1), si no
 # la asignación de monitor queda muerta y sway decide solo.
-workspace personal:01 output eDP-1
-workspace personal:02 output eDP-1
-workspace personal:03 output eDP-1
-workspace personal:04 output eDP-1
-workspace personal:05 output eDP-1
-workspace personal:06 output eDP-1
-workspace personal:07 output eDP-1
-workspace personal:08 output eDP-1
-workspace personal:09 output eDP-1
-workspace personal:10 output HDMI-A-2
+# workspace personal:01 output eDP-1
+# workspace personal:02 output eDP-1
+# workspace personal:03 output eDP-1
+# workspace personal:04 output eDP-1
+# workspace personal:05 output eDP-1
+# workspace personal:06 output eDP-1
+# workspace personal:07 output eDP-1
+# workspace personal:08 output eDP-1
+# workspace personal:09 output eDP-1
+# workspace personal:10 output HDMI-A-2
 
-workspace work:01 output eDP-1
-workspace work:02 output eDP-1
-workspace work:03 output eDP-1
-workspace work:04 output eDP-1
-workspace work:05 output eDP-1
-workspace work:06 output eDP-1
-workspace work:07 output eDP-1
-workspace work:08 output eDP-1
-workspace work:09 output eDP-1
-workspace work:10 output HDMI-A-2
+# workspace work:01 output eDP-1
+# workspace work:02 output eDP-1
+# workspace work:03 output eDP-1
+# workspace work:04 output eDP-1
+# workspace work:05 output eDP-1
+# workspace work:06 output eDP-1
+# workspace work:07 output eDP-1
+# workspace work:08 output eDP-1
+# workspace work:09 output eDP-1
+# workspace work:10 output HDMI-A-2
