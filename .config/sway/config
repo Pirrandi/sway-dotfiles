@@ -9,6 +9,9 @@ set $term alacritty
 set $menu wofi --show drun
 
 # Módulos
-include ~/.config/sway/config.d/*
+# El glob filtra por *.conf a propósito: con `config.d/*` sway también cargaba
+# output.conf.example, que NO está comentado y define un monitor HDMI-A-2
+# inexistente más 20 asignaciones de workspace que pisaban a las reales.
+# ctx-binds.conf ya entra por este glob — incluirlo otra vez duplicaba los binds.
+include ~/.config/sway/config.d/*.conf
 include /etc/sway/config.d/*
-include ~/.config/sway/config.d/ctx-binds.conf
