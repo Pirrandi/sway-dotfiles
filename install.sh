@@ -130,10 +130,10 @@ fi
 # ============================================
 # WALLPAPER
 # ============================================
-if [ ! -f "$HOME/Pictures/wallpaper.png" ]; then
+if [ ! -f "$HOME/Pictures/wallpaper.jpg" ]; then
   echo "==> Descargando wallpaper..."
-  wget -q -O "$HOME/Pictures/wallpaper.png" \
-    https://raw.githubusercontent.com/dharmx/walls/refs/heads/main/weirdcore/a_cat_looking_at_the_camera.png
+  wget -q -O "$HOME/Pictures/wallpaper.jpg" \
+    https://raw.githubusercontent.com/vyrx-dev/Wallpapers/master/monochrome/monochrome-headless.jpg
 fi
 
 # ============================================
