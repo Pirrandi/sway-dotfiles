@@ -23,23 +23,6 @@
         "clock",
         "tray"
     ],
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "format": "{name}",
-        "format-icons": {
-            "work:1": "💼1",
-            "work:2": "💼2",
-            "work:3": "💼3",
-            "work:4": "💼4",
-            "work:5": "💼5",
-            "personal:1": "🏠1",
-            "personal:2": "🏠2",
-            "personal:3": "🏠3",
-            "personal:4": "🏠4",
-            "personal:5": "🏠5"
-        },
-        "format": "{icon}"
-    },
     "sway/mode": {
         "format": " {}"
     },
@@ -52,7 +35,7 @@
         "return-type": "json"
     },
     "cpu": {
-        "interval": 5,
+        "interval": 10,
         "format": "cpu {usage}%",
         "tooltip": false
     },
@@ -60,10 +43,10 @@
         "interval": 10,
         "format": "mem {}%"
     },
-    // Sin hwmon-path, waybar agarra el primer sensor que encuentra: aca era
-    // hwmon0 = el NVMe, no el CPU. hwmon-path-abs apunta al device PCI del
-    // k10temp (el sensor del Ryzen), que es estable entre reboots — los numeros
-    // hwmonN no lo son. En una laptop Intel suele ser
+    // Sin hwmon-path, waybar agarra el primer sensor que encuentra: acá era
+    // hwmon0 = el NVMe (39.9 C), no el CPU. hwmon-path-abs apunta al device PCI
+    // del k10temp (el sensor del Ryzen), que es estable entre reboots — los
+    // numeros hwmonN no lo son. En una laptop Intel esto suele ser
     // /sys/devices/platform/coretemp.0/hwmon
     "temperature": {
         "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
@@ -72,6 +55,9 @@
         "format": "{temperatureC}°C",
         "format-critical": "{temperatureC}°C !"
     },
+    // backlight y battery son event-driven via udev (no hacen polling), asi que
+    // no cuestan nada aunque esta torre no tenga ninguno de los dos. Se quedan
+    // para que los dotfiles sigan sirviendo tal cual en la laptop.
     "backlight": {
         "format": "bri {percent}%"
     },
@@ -102,6 +88,8 @@
         "on-click": "pavucontrol",
         "on-click-right": "$HOME/.config/scripts/audio-output.sh"
     },
+    // Sin "interval": el script es persistente y escribe una linea por cada
+    // cambio que le empuja `playerctl --follow`. Con interval hacia polling.
     "custom/mpris": {
         "exec": "$HOME/.config/scripts/mpris-marquee.sh",
         "return-type": "json",
@@ -109,19 +97,22 @@
         "on-click-right": "playerctl next",
         "escape": true
     },
+    // interval 30 en vez de 5: switch_to/disconnect ya mandan RTMIN+2 al cambiar
+    // de perfil, asi que el poll solo refresca los contadores de trafico del
+    // tooltip. Pollear eso cada 5s costaba un fork de sudo+wg para nada.
+    "custom/vpn": {
+        "exec": "$HOME/.config/scripts/wg-status.sh status",
+        "return-type": "json",
+        "interval": 30,
+        "signal": 2,
+        "format": "{}",
+        "on-click": "$HOME/.config/scripts/wg-status.sh menu"
+    },
     "network": {
         "format-wifi": "{essid} {signalStrength}%",
         "format-ethernet": "{ipaddr}",
         "format-disconnected": "disconnected",
         "tooltip-format": "{ifname} {ipaddr}"
-    },
-    "custom/vpn": {
-        "exec": "$HOME/.config/scripts/wg-status.sh status",
-        "return-type": "json",
-        "interval": 5,
-        "signal": 2,
-        "format": "{}",
-        "on-click": "$HOME/.config/scripts/wg-status.sh menu"
     },
     "clock": {
         "format": "{:%H:%M}",
@@ -130,8 +121,13 @@
     },
     "tray": {
         "spacing": 8
-    }
-,
+    },
+    // Script persistente: se suscribe a los eventos de workspace de sway en vez
+    // de re-ejecutar bash + cat + python3 una vez por segundo.
+    // "signal": 1 SE QUEDA aunque ya no haga falta para refrescar: hay 14 lugares
+    // (keybindings, audio-output.sh, ctx-menu.sh) que mandan `pkill -RTMIN+1
+    // waybar`. Si ningun modulo declara la señal, waybar no instala handler y la
+    // accion por defecto de una señal de tiempo real es TERMINAR el proceso.
     "custom/ctx-workspaces": {
         "exec": "$HOME/.config/scripts/ctx-workspaces.sh",
         "interval": 1,
