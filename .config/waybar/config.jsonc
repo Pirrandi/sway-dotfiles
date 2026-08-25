@@ -20,11 +20,17 @@
         "custom/mpris",
         "custom/vpn",
         "network",
+        "sway/language",
         "clock",
         "tray"
     ],
     "sway/mode": {
         "format": " {}"
+    },
+    "sway/language": {
+        "format": "⌨ {short}",
+        "tooltip-format": "{long}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
     "sway/window": {
         "max-length": 60
