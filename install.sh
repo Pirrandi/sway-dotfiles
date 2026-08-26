@@ -47,7 +47,7 @@ sudo pacman -S --needed \
   xdg-desktop-portal xdg-desktop-portal-wlr \
   nwg-look gnome-themes-extra \
   git zsh curl wget \
-  flatpak
+  flatpak swappy
 
 # AUR
 if command -v yay &>/dev/null; then
@@ -123,7 +123,7 @@ chmod +x "$HOME/.config/scripts/"*.sh 2>/dev/null || true
 # Contextos por defecto si no existen
 CONTEXTS_FILE="$HOME/.config/scripts/contexts.txt"
 if [ ! -f "$CONTEXTS_FILE" ]; then
-  echo -e "personal\nwork" > "$CONTEXTS_FILE"
+  echo -e "personal\nwork" >"$CONTEXTS_FILE"
 fi
 
 # ============================================

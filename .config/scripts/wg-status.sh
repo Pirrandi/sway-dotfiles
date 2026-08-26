@@ -1,9 +1,12 @@
 #!/bin/bash
-PROFILES=(cl-scl-wg-001 peer5 peer9)
+PROFILES_DIR="$HOME/.config/wireguard-profiles"
+mapfile -t PROFILES < <(find "$PROFILES_DIR" -maxdepth 1 -name '*.conf' -printf '%f\n' 2>/dev/null | sed 's/\.conf$//' | sort)
 
 active_profile() {
+    local up
+    up=$(ip -o link show type wireguard 2>/dev/null | awk -F': ' '{print $2}')
     for p in "${PROFILES[@]}"; do
-        if systemctl is-active --quiet "wg-quick@${p}.service"; then
+        if grep -qx "$p" <<< "$up"; then
             echo "$p"
             return
         fi
@@ -17,10 +20,9 @@ status() {
         echo '{"text":"vpn off","tooltip":"VPN desconectada","class":"disconnected"}'
         return
     fi
-    local transfer rx tx rx_h tx_h
-    transfer=$(sudo -n wg show "$active" transfer 2>/dev/null)
-    rx=$(echo "$transfer" | awk '{print $2}')
-    tx=$(echo "$transfer" | awk '{print $3}')
+    local rx tx rx_h tx_h
+    rx=$(cat "/sys/class/net/$active/statistics/rx_bytes" 2>/dev/null)
+    tx=$(cat "/sys/class/net/$active/statistics/tx_bytes" 2>/dev/null)
     rx_h="n/d"
     tx_h="n/d"
     [ -n "$rx" ] && rx_h=$(numfmt --to=iec --suffix=B "$rx")
@@ -33,10 +35,10 @@ switch_to() {
     local active
     active=$(active_profile)
     if [ -n "$active" ] && [ "$active" != "$target" ]; then
-        sudo -n systemctl stop "wg-quick@${active}.service"
+        sudo -n wg-quick down "$PROFILES_DIR/$active.conf"
     fi
     if [ "$active" != "$target" ]; then
-        sudo -n systemctl start "wg-quick@${target}.service"
+        sudo -n wg-quick up "$PROFILES_DIR/$target.conf"
         notify-send "VPN" "Conectado a ${target}" -t 1500
     fi
     pkill -RTMIN+2 waybar
@@ -46,13 +48,17 @@ disconnect() {
     local active
     active=$(active_profile)
     if [ -n "$active" ]; then
-        sudo -n systemctl stop "wg-quick@${active}.service"
+        sudo -n wg-quick down "$PROFILES_DIR/$active.conf"
         notify-send "VPN" "Desconectado" -t 1500
     fi
     pkill -RTMIN+2 waybar
 }
 
 menu() {
+    local lockfile="/tmp/wg-status-menu.lock"
+    exec 200>"$lockfile"
+    flock -n 200 || exit 0
+
     local active options choice target
     active=$(active_profile)
     options=""

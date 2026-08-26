@@ -43,3 +43,6 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # bun
 [ -s "/home/pirra/.bun/_bun" ] && source "/home/pirra/.bun/_bun"
+
+
+alias ls=lsd
