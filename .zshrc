@@ -21,6 +21,25 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Word navigation (Ctrl+Left/Right)
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[Od'    backward-word   # urxvt/rxvt
+bindkey '^[Oc'    forward-word
+
+# Word deletion
+bindkey '^[[3;3~' kill-word           # Alt+Delete
+bindkey '^[[3;5~' kill-word           # Ctrl+Delete
+bindkey '^[^?'    backward-kill-word  # Alt+Backspace
+bindkey '^H'      backward-kill-word  # Ctrl+Backspace
+
+# Line navigation and plain Delete
+bindkey '^[[H'  beginning-of-line
+bindkey '^[[F'  end-of-line
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[4~' end-of-line
+bindkey '^[[3~' delete-char
+
 # Autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#3a3a3a'
 
@@ -47,3 +66,4 @@ alias ll='eza -lah --icons'
 alias la='eza -a --icons'
 alias lt='eza --tree --level=2 --icons'
 alias l='eza -l --icons'
+export PATH="/home/pirra/.npm-global/bin:$PATH"
