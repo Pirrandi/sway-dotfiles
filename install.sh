@@ -44,7 +44,10 @@ sudo pacman -S --needed \
   brightnessctl imv \
   ttf-jetbrains-mono-nerd ttf-font-awesome \
   noto-fonts-emoji noto-fonts-extra \
-  pipewire wireplumber \
+  pipewire pipewire-pulse wireplumber pavucontrol \
+  playerctl blueman wireguard-tools \
+  jq python eza \
+  swappy cliphist wlsunset \
   xdg-desktop-portal xdg-desktop-portal-wlr \
   nwg-look gnome-themes-extra \
   git zsh curl wget \
@@ -55,9 +58,9 @@ sudo pacman -S --needed \
 # AUR
 if command -v yay &>/dev/null; then
   echo "==> Instalando paquetes AUR..."
-  yay -S --needed swaylock-effects
+  yay -S --needed swaylock-effects warpd-wayland otpclient
 else
-  echo "WARN: yay no encontrado, instala swaylock-effects manualmente"
+  echo "WARN: yay no encontrado, instala manualmente: swaylock-effects warpd-wayland otpclient"
 fi
 
 # ============================================
