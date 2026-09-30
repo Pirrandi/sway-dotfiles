@@ -21,7 +21,7 @@ case "$CHOICE" in
             pkill -f wlsunset
             notify-send "Filtro luz azul" "Desactivado" -t 1500
         elif ! command -v wlsunset >/dev/null; then
-            notify-send "Filtro luz azul" "wlsunset no está instalado (yay -S wlsunset)" -u critical
+            notify-send "Filtro luz azul" "wlsunset no está instalado (sudo pacman -S wlsunset)" -u critical
         else
             wlsunset -S 07:00 -s 20:00 -t 4000 &
             disown
@@ -33,7 +33,7 @@ case "$CHOICE" in
             pkill -f "watch cliphist"
             notify-send "Historial portapapeles" "Desactivado" -t 1500
         elif ! command -v cliphist >/dev/null; then
-            notify-send "Historial portapapeles" "cliphist no está instalado (yay -S cliphist)" -u critical
+            notify-send "Historial portapapeles" "cliphist no está instalado (sudo pacman -S cliphist)" -u critical
         else
             wl-paste --type text --watch cliphist store &
             disown
