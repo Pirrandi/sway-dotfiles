@@ -2,26 +2,44 @@
 # Waybar custom/ctx-workspaces: workspaces of the active context (work/personal),
 # rendered as "work: ●1 ○2 ○3".
 #
-# One-shot: renders once and exits, driven by waybar's interval + RTMIN+1.
-# The cost here was never the polling itself but what each tick paid for: the
-# old version started bash + cat + a full python3 interpreter (~28ms/tick),
-# while the swaymsg query it wraps costs 1.6ms. Dropping python for jq and
-# `cat` for bash's $(<file) keeps identical behaviour for a fraction of the price.
+# Persistent: renders once, then re-renders only on sway workspace events
+# instead of forking bash + swaymsg + jq every second. Context switches are
+# covered too, because every switch ends in `swaymsg workspace <ctx>:NN`, which
+# fires a workspace event after the context file has been written.
+#
+# LIFECYCLE: exits when waybar (the parent) is gone, so reloads don't pile up
+# orphaned copies of this script and its `swaymsg -t subscribe` child.
 
 CTX_FILE=/tmp/sway-ctx
+PARENT=$PPID
 
-ctx=""
-[ -r "$CTX_FILE" ] && ctx=$(<"$CTX_FILE")
-ctx=${ctx//[[:space:]]/}
-[ -n "$ctx" ] || ctx=work
+render() {
+    local ctx=""
+    [ -r "$CTX_FILE" ] && ctx=$(<"$CTX_FILE")
+    ctx=${ctx//[[:space:]]/}
+    [ -n "$ctx" ] || ctx=personal
 
-swaymsg -t get_workspaces -r 2>/dev/null | jq -r --arg ctx "$ctx" '
-    [ .[]
-      | select(.name | startswith($ctx + ":"))
-      | { n: (.name | split(":") | .[1] | tonumber), f: .focused }
-    ]
-    | sort_by(.n)
-    | map((if .f then "●" else "○" end) + (.n | tostring))
-    | (if length == 0 then "○1" else join(" ") end)
-    | $ctx + ": " + .
-'
+    swaymsg -t get_workspaces -r 2>/dev/null | jq -r --unbuffered --arg ctx "$ctx" '
+        [ .[]
+          | select(.name | startswith($ctx + ":"))
+          | { n: (.name | split(":") | .[1] | tonumber), f: .focused }
+        ]
+        | sort_by(.n)
+        | map((if .f then "●" else "○" end) + (.n | tostring))
+        | (if length == 0 then "○1" else join(" ") end)
+        | $ctx + ": " + .
+    '
+}
+
+trap 'pkill -P $$; exit 0' INT TERM HUP EXIT
+
+render
+while true; do
+    while read -r _; do
+        [ -e "/proc/$PARENT" ] || exit 0
+        render || exit 0
+    done < <(swaymsg -t subscribe -m '["workspace"]' 2>/dev/null)
+    # sway IPC dropped (sway restart): retry instead of freezing the module
+    [ -e "/proc/$PARENT" ] || exit 0
+    sleep 1
+done

@@ -129,14 +129,13 @@
         "spacing": 8
     },
     // Script persistente: se suscribe a los eventos de workspace de sway en vez
-    // de re-ejecutar bash + cat + python3 una vez por segundo.
+    // de re-ejecutar bash + swaymsg + jq una vez por segundo. Sin "interval".
     // "signal": 1 SE QUEDA aunque ya no haga falta para refrescar: hay 14 lugares
     // (keybindings, audio-output.sh, ctx-menu.sh) que mandan `pkill -RTMIN+1
     // waybar`. Si ningun modulo declara la señal, waybar no instala handler y la
     // accion por defecto de una señal de tiempo real es TERMINAR el proceso.
     "custom/ctx-workspaces": {
         "exec": "$HOME/.config/scripts/ctx-workspaces.sh",
-        "interval": 1,
         "signal": 1,
         "format": "{}",
         "tooltip": false
