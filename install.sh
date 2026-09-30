@@ -131,7 +131,7 @@ echo "==> Sincronizando plugins de LazyVim..."
 nvim --headless "+Lazy! sync" +qa || echo "  WARN: falló el sync, se completará al abrir nvim"
 
 # Scripts — asegurarse de que son ejecutables
-chmod +x "$HOME/.config/scripts/"*.sh 2>/dev/null || true
+chmod +x "$HOME/.config/scripts/"*.{sh,py} 2>/dev/null || true
 
 # Contextos por defecto si no existen
 CONTEXTS_FILE="$HOME/.config/scripts/contexts.txt"
