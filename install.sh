@@ -48,6 +48,8 @@ sudo pacman -S --needed \
   xdg-desktop-portal xdg-desktop-portal-wlr \
   nwg-look gnome-themes-extra \
   git zsh curl wget \
+  neovim ripgrep fd fzf lazygit tree-sitter-cli \
+  gcc make unzip nodejs npm \
   flatpak
 
 # AUR
@@ -83,7 +85,7 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/Pictures"
 
 # Configs — symlink de cada directorio
-for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts fontconfig; do
+for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts fontconfig nvim; do
   if [ -d "$DOTFILES_DIR/.config/$dir" ]; then
     target="$HOME/.config/$dir"
     # Si ya existe como directorio real, preguntar antes de reemplazar
@@ -117,6 +119,12 @@ if [ ! -f "$OUTPUT_CONF" ]; then
   echo "  Ejecuta: swaymsg -t get_outputs"
   echo ""
 fi
+
+# ============================================
+# NEOVIM — pre-instalar plugins de LazyVim
+# ============================================
+echo "==> Sincronizando plugins de LazyVim..."
+nvim --headless "+Lazy! sync" +qa || echo "  WARN: falló el sync, se completará al abrir nvim"
 
 # Scripts — asegurarse de que son ejecutables
 chmod +x "$HOME/.config/scripts/"*.sh 2>/dev/null || true
@@ -176,7 +184,8 @@ echo "  1. Reinicia la sesión"
 echo "  2. Entra a Sway desde TTY: sway"
 echo "  3. Configura p10k: p10k configure"
 echo "  4. Ajusta monitores: ~/.config/sway/config.d/output.conf"
+echo "  5. Verifica Neovim: nvim +checkhealth"
 if [ "$IS_VM" = true ]; then
-  echo "  5. Reinicia para aplicar drivers de VM"
+  echo "  6. Reinicia para aplicar drivers de VM"
 fi
 echo ""

@@ -16,6 +16,7 @@ Configuración personal para Arch Linux + Sway con repositorios Black Arch.
 - **Shell**: Zsh + Powerlevel10k
 - **Notificaciones**: Mako
 - **Lockscreen**: Swaylock-effects
+- **Editor**: Neovim + LazyVim
 
 ## Instalación
 
