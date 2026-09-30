@@ -84,9 +84,10 @@ echo "==> Creando symlinks..."
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/Pictures"
 
-# Configs — symlink de cada directorio
-for dir in sway waybar alacritty tmux wofi mako swaylock environment.d scripts fontconfig nvim; do
-  if [ -d "$DOTFILES_DIR/.config/$dir" ]; then
+# Configs — symlink de cada directorio de .config/ (nada queda afuera por olvido)
+for src in "$DOTFILES_DIR"/.config/*/; do
+  dir=$(basename "$src")
+  if [ -d "$src" ]; then
     target="$HOME/.config/$dir"
     # Si ya existe como directorio real, preguntar antes de reemplazar
     if [ -d "$target" ] && [ ! -L "$target" ]; then
