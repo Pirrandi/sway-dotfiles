@@ -46,22 +46,24 @@ bindkey '^[[3~' delete-char
 # Autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#3a3a3a'
 
-# PATH
-export PATH="$HOME/.local/bin:$PATH"
+# PATH — typeset -U drops duplicates, so nested shells (tmux panes) don't grow it
+typeset -U path
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+path=("$HOME/.npm-global/bin" "$BUN_INSTALL/bin" "$HOME/.local/bin" $path)
 export EDITOR=nvim
 
-# Flatpak
-export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+# Flatpak — tied array keeps XDG_DATA_DIRS unique; falls back to the spec
+# default so /usr/share is never lost when the variable starts empty
+typeset -TUx XDG_DATA_DIRS xdg_data_dirs
+(( ${#xdg_data_dirs} )) || xdg_data_dirs=(/usr/local/share /usr/share)
+xdg_data_dirs=(/var/lib/flatpak/exports/share "$HOME/.local/share/flatpak/exports/share" $xdg_data_dirs)
 
 # p10k
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # bun
-[ -s "/home/pirra/.bun/_bun" ] && source "/home/pirra/.bun/_bun"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 # eza aliases
 alias ls='eza'
@@ -69,4 +71,3 @@ alias ll='eza -lah --icons'
 alias la='eza -a --icons'
 alias lt='eza --tree --level=2 --icons'
 alias l='eza -l --icons'
-export PATH="/home/pirra/.npm-global/bin:$PATH"
