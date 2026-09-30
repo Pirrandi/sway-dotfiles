@@ -5,13 +5,16 @@ fi
 
 # Historia
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 setopt appendhistory sharehistory incappendhistory
+setopt hist_ignore_all_dups hist_ignore_space hist_reduce_blanks
 
-# Completion
+# Completion — arrow-key menu, case-insensitive matching
 autoload -Uz compinit
 compinit -d ~/.cache/zcompdump
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Plugins directos (sin OMZ)
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -45,6 +48,9 @@ bindkey '^[[3~' delete-char
 
 # Autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#3a3a3a'
+
+# fzf — Ctrl+R history search, Ctrl+T file picker, Alt+C cd
+command -v fzf >/dev/null && source <(fzf --zsh)
 
 # PATH — typeset -U drops duplicates, so nested shells (tmux panes) don't grow it
 typeset -U path
