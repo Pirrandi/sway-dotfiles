@@ -26,22 +26,35 @@ Configuración personal para **Arch Linux + Sway**. Ligera en recursos, completa
 
 ## Instalación
 
-Requisitos: Arch Linux (o derivada), `git` y, opcionalmente, `yay` para los paquetes de AUR.
+Requisitos: Arch Linux (o derivada) y `git`. El instalador usa [gum](https://github.com/charmbracelet/gum) para la interfaz y lo instala si falta.
 
 ```bash
-git clone https://github.com/Pirrandi/sway-dotfiles.git
-cd sway-dotfiles
+git clone https://github.com/Pirrandi/sway-dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ./install.sh
 ```
 
-El instalador:
+El instalador es interactivo: **primero pregunta todo, muestra un resumen y solo instala si confirmas**. Si cancelas en el resumen, no se modifica nada.
 
-1. Instala los paquetes oficiales y los de AUR (`swaylock-effects`, `warpd-wayland`, `otpclient`).
-2. Configura zsh con Powerlevel10k y lo deja como shell por defecto.
+**Qué pregunta**
+
+| Pregunta | Por defecto |
+|----------|-------------|
+| Componentes opcionales: Neovim + LazyVim, utilidades (portapapeles, luz azul, swappy, warpd), VPN WireGuard, Flatpak, Tidal, MangoHud, OTPClient | Todos menos Tidal y OTPClient |
+| Instalar `yay` para acceder a AUR (solo si no está) | Sí |
+| Agregar los repositorios de BlackArch (solo el repo, sin herramientas) | No |
+| Herramientas de invitado (solo si detecta una VM: VMware, VirtualBox, QEMU/KVM) | Sí |
+| Usar zsh como shell por defecto (solo si no lo es) | Sí |
+
+**Qué hace**
+
+1. Instala los paquetes oficiales y los de AUR según lo elegido. La base de Sway siempre se instala.
+2. Descarga Powerlevel10k.
 3. Crea un symlink en `~/.config/` para cada carpeta de `.config/` del repositorio, además de `~/.zshrc` y `~/.p10k.zsh`. Si ya existe una carpeta real, la respalda como `*.bak`.
 4. Crea `output.conf` a partir de la plantilla y genera los atajos de contexto.
-5. Descarga los plugins de LazyVim y el wallpaper.
-6. Si detecta una máquina virtual, ofrece instalar sus herramientas (VMware, VirtualBox, QEMU/KVM).
+5. Descarga el wallpaper y, si corresponde, los plugins de LazyVim.
+
+Cada paso muestra su progreso; la salida completa queda en `~/.cache/sway-dotfiles-install.log`. Si un paso falla, se muestran las últimas líneas del log.
 
 ### Después de instalar
 
