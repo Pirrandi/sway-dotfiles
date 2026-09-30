@@ -21,6 +21,9 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Treat '.', '-' and '/' as word separators (stop at them on word motions/deletions)
+WORDCHARS=${WORDCHARS//[.\/-]/}
+
 # Word navigation (Ctrl+Left/Right)
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
