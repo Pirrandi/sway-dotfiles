@@ -139,6 +139,9 @@ if [ ! -f "$CONTEXTS_FILE" ]; then
   echo -e "personal\nwork" > "$CONTEXTS_FILE"
 fi
 
+# Binds $mod+F<n> por contexto (si no, no existen hasta abrir el menú)
+"$HOME/.config/scripts/ctx-menu.sh" --gen-binds
+
 # ============================================
 # WALLPAPER
 # ============================================

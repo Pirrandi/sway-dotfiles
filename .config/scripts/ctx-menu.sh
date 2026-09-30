@@ -14,8 +14,14 @@ generate_binds() {
         echo "bindsym \$mod+F${i} exec bash -c 'echo ${ctx} > $CTX_FILE && swaymsg workspace ${ctx}:01 && pkill -RTMIN+1 waybar && notify-send Contexto ${ctx} -t 1500'" >> $BINDS_FILE
         i=$((i+1))
     done < $CONTEXTS_FILE
-    swaymsg reload
+    [ "$1" = "--no-reload" ] || swaymsg reload
 }
+
+# Used by install.sh: write the $mod+F<n> context binds without opening the menu
+if [ "$1" = "--gen-binds" ]; then
+    generate_binds --no-reload
+    exit 0
+fi
 
 CONTEXTS=$(cat $CONTEXTS_FILE)
 
