@@ -1,17 +1,14 @@
 return {
   {
-    "rebelot/kanagawa.nvim",
+    "bluz71/vim-moonfly-colors",
+    name = "moonfly",
     lazy = false,
     priority = 1000,
-    opts = {
-      theme = "dragon",
-      background = { dark = "dragon", light = "lotus" },
-    },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa-dragon",
+      colorscheme = "moonfly",
     },
   },
 }
