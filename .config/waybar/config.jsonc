@@ -36,7 +36,7 @@
         "max-length": 60
     },
     "custom/claude": {
-        "exec": "$HOME/.config/scripts/claude_usage.sh",
+        "exec": "$HOME/.config/scripts/claude_usage.py",
         "interval": 300,
         "return-type": "json"
     },
