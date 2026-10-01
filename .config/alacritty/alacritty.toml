@@ -3,14 +3,15 @@
 [window]
 padding.x = 10
 padding.y = 10
-opacity = 0.85
-blur = true
+opacity = 0.95
+blur = false
 decorations = "full"
 dynamic_title = true
 
 [terminal.shell]
-program = "/usr/bin/tmux"
-args = ["new-session", "-f", "~/.config/tmux/tmux.conf"]
+# Se adjunta a la sesión "main" de tmux (ver ~/.config/tmux/attach.sh)
+program = "/bin/sh"
+args = ["-c", "exec \"$HOME/.config/tmux/attach.sh\""]
 
 [scrolling]
 history = 10000
@@ -34,33 +35,74 @@ style = "Italic"
 family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
+# Paleta carbonfox (nightfox.nvim, igual que el colorscheme de Neovim)
 [colors.primary]
-background = "#111111"
-foreground = "#cccccc"
+background        = "#161616"
+foreground        = "#f2f4f8"
+dim_foreground    = "#b6b8bb"
+bright_foreground = "#f9fbff"
 
 [colors.cursor]
-text = "#111111"
-cursor = "#cccccc"
+text   = "#f2f4f8"
+cursor = "#b6b8bb"
+
+[colors.vi_mode_cursor]
+text   = "#161616"
+cursor = "#33b1ff"
+
+[colors.selection]
+background = "#2a2a2a"
+text       = "#f2f4f8"
+
+[colors.search.matches]
+background = "#525253"
+foreground = "#f2f4f8"
+
+[colors.search.focused_match]
+background = "#3ddbd9"
+foreground = "#161616"
+
+[colors.footer_bar]
+background = "#353535"
+foreground = "#f2f4f8"
 
 [colors.normal]
-black   = "#1a1a1a"
-red     = "#cc3333"
-green   = "#668844"
-yellow  = "#aa8833"
-blue    = "#4466aa"
-magenta = "#774488"
-cyan    = "#447788"
-white   = "#aaaaaa"
+black   = "#282828"
+red     = "#ee5396"
+green   = "#25be6a"
+yellow  = "#08bdba"
+blue    = "#78a9ff"
+magenta = "#be95ff"
+cyan    = "#33b1ff"
+white   = "#dfdfe0"
 
 [colors.bright]
-black   = "#333333"
-red     = "#dd4444"
-green   = "#779955"
-yellow  = "#bbaa44"
-blue    = "#5577bb"
-magenta = "#885599"
-cyan    = "#558899"
-white   = "#cccccc"
+black   = "#484848"
+red     = "#f16da6"
+green   = "#46c880"
+yellow  = "#2dc7c4"
+blue    = "#8cb6ff"
+magenta = "#c8a5ff"
+cyan    = "#52bdff"
+white   = "#e4e4e5"
+
+[colors.dim]
+black   = "#222222"
+red     = "#ca4780"
+green   = "#1fa25a"
+yellow  = "#07a19e"
+blue    = "#6690d9"
+magenta = "#a27fd9"
+cyan    = "#2b96d9"
+white   = "#bebebe"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#3ddbd9"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#ff7eb6"
 
 [cursor]
 style = { shape = "Beam", blinking = "Always" }
