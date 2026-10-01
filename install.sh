@@ -7,11 +7,11 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG="$HOME/.cache/sway-dotfiles-install.log"
 export DOTFILES_DIR LOG
 
-# Paleta (la misma de tmux/alacritty)
-ACCENT="#c9a227"
-MUTED="#888888"
-OK="#779955"
-ERR="#cc3333"
+# Paleta carbonfox (la misma de tmux/alacritty/Neovim)
+ACCENT="#78a9ff"
+MUTED="#7b7c7e"
+OK="#25be6a"
+ERR="#ee5396"
 
 # ============================================
 # PAQUETES
@@ -325,7 +325,7 @@ fi
 # ============================================
 NEXT=("Cierra sesión y entra a Sway desde la TTY: sway")
 $NEW_OUTPUT_CONF && NEXT+=("Ajusta tus monitores en ~/.config/sway/config.d/output.conf (swaymsg -t get_outputs)")
-NEXT+=("Configura el prompt: p10k configure")
+NEXT+=("El prompt ya viene configurado (~/.p10k.zsh); p10k configure lo sobrescribe")
 selected "$C_NVIM" && NEXT+=("Abre nvim una vez para compilar Treesitter y revisa :checkhealth")
 $VM_TOOLS && NEXT+=("Reinicia para cargar los drivers de la VM")
 

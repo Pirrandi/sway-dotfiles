@@ -60,7 +60,7 @@ Cada paso muestra su progreso; la salida completa queda en `~/.cache/sway-dotfil
 
 1. Cierra sesión y entra a Sway desde la TTY: `sway`.
 2. Ajusta los monitores en `~/.config/sway/config.d/output.conf` (nombres con `swaymsg -t get_outputs`).
-3. Configura el prompt: `p10k configure`.
+3. El prompt ya viene configurado en `.p10k.zsh` (carbonfox + iconos). `p10k configure` lo sobrescribe.
 4. Abre `nvim` una vez para que compile los parsers de Treesitter y revisa `:checkhealth`.
 
 ## Contextos
@@ -141,6 +141,33 @@ El prefijo es `Ctrl+A`.
 | `↑` / `↓` | Buscar en el historial por lo ya escrito |
 | `Ctrl+←/→` | Moverse por palabras |
 | `Ctrl+Backspace` / `Alt+Backspace` | Borrar la palabra anterior |
+
+## Terminal: tmux + acceso remoto
+
+Alacritty abre siempre la sesión persistente `main` de tmux. Si `main` ya está abierta en otra ventana, se crea una sesión desechable que se destruye al cerrarla.
+
+| Atajo / comando | Acción |
+|-----------------|--------|
+| `F12` | Desactiva este tmux para controlar uno anidado (la barra muestra `OFF`); `F12` de nuevo lo reactiva |
+| `Prefijo` + `S` | Selector de sesiones |
+| `tm` | Abrir o adjuntarse a `main` |
+| `tphone` | Sesión agrupada con `main`: comparte las ventanas pero elige su propia ventana activa (para el teléfono) |
+
+- La barra se pone roja (`SSH`) cuando la sesión llega por SSH.
+- `ssh` y `mosh` tiñen de rojo el panel mientras dura la conexión.
+
+**Acceso desde el teléfono**: `./remote-access.sh` instala Tailscale y mosh, activa Tailscale SSH (sshd queda deshabilitado), abre los puertos de mosh solo en `tailscale0` y muestra los pasos para el teléfono y las recomendaciones de seguridad (2FA, Tailnet Lock, ACL con `"action": "check"`).
+
+## Tema e iconos
+
+Todo usa la paleta **carbonfox** ([nightfox.nvim](https://github.com/EdenEast/nightfox.nvim)): Neovim, Alacritty, tmux, el prompt de Powerlevel10k, el resaltado de zsh y fzf. Fondo `#161616`, texto `#f2f4f8`, acento azul `#78a9ff`, rosa `#ff7eb6`, verde `#25be6a` y rojo `#ee5396`.
+
+La barra de tmux, el prompt y fzf usan iconos de **Nerd Font v3**, así que la terminal tiene que usar una Nerd Font (el instalador trae JetBrainsMono Nerd Font para Alacritty). Desde el teléfono:
+
+- **Termux**: copia una Nerd Font (por ejemplo `JetBrainsMonoNerdFont-Regular.ttf`) a `~/.termux/font.ttf` y ejecuta `termux-reload-settings`.
+- **Blink Shell (iOS)**: agrega una Nerd Font en *Settings → Appearance* y selecciónala.
+
+Sin una Nerd Font los iconos se ven como cuadros o signos de interrogación.
 
 ## Personalización
 

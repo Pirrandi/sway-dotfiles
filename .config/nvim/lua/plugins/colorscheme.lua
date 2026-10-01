@@ -1,14 +1,13 @@
 return {
   {
-    "bluz71/vim-moonfly-colors",
-    name = "moonfly",
+    "EdenEast/nightfox.nvim",
     lazy = false,
     priority = 1000,
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "moonfly",
+      colorscheme = "carbonfox",
     },
   },
 }
