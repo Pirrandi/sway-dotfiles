@@ -1,19 +1,19 @@
 #!/bin/bash
-CTX_FILE=/tmp/sway-ctx
+CTX_FILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/sway-ctx"
 CONTEXTS_FILE=$HOME/.config/scripts/contexts.txt
 BINDS_FILE=$HOME/.config/sway/config.d/ctx-binds.conf
 
 if [ ! -f "$CONTEXTS_FILE" ]; then
-    echo -e "personal\nwork" > $CONTEXTS_FILE
+    echo -e "personal\nwork" > "$CONTEXTS_FILE"
 fi
 
 generate_binds() {
-    echo "# Contextos - generado automáticamente" > $BINDS_FILE
+    echo "# Contextos - generado automáticamente" > "$BINDS_FILE"
     local i=1
     while IFS= read -r ctx; do
-        echo "bindsym \$mod+F${i} exec bash -c 'echo ${ctx} > $CTX_FILE && swaymsg workspace ${ctx}:01 && pkill -RTMIN+1 waybar && notify-send Contexto ${ctx} -t 1500'" >> $BINDS_FILE
+        echo "bindsym \$mod+F${i} exec bash -c 'echo ${ctx} > $CTX_FILE && swaymsg workspace ${ctx}:01 && pkill -RTMIN+1 waybar && notify-send Contexto ${ctx} -t 1500'" >> "$BINDS_FILE"
         i=$((i+1))
-    done < $CONTEXTS_FILE
+    done < "$CONTEXTS_FILE"
     [ "$1" = "--no-reload" ] || swaymsg reload
 }
 
@@ -23,7 +23,7 @@ if [ "$1" = "--gen-binds" ]; then
     exit 0
 fi
 
-CONTEXTS=$(cat $CONTEXTS_FILE)
+CONTEXTS=$(cat "$CONTEXTS_FILE")
 
 WS_OPTIONS=""
 while IFS= read -r ctx; do
@@ -45,7 +45,7 @@ case "$OPTION" in
     *"Ir a "*)
         WS=$(echo "$OPTION" | grep -oP '[a-zA-Z]+:\d+')
         CTX_NAME=$(echo "$WS" | cut -d: -f1)
-        echo "$CTX_NAME" > $CTX_FILE
+        echo "$CTX_NAME" > "$CTX_FILE"
         swaymsg "workspace $WS"
         pkill -RTMIN+1 waybar
         notify-send "Contexto" "📁 $WS" -t 1500
@@ -57,13 +57,19 @@ case "$OPTION" in
         ;;
     *"Nuevo contexto"*)
         NEW_CTX=$(echo "" | wofi --show dmenu --prompt "Nombre del contexto:")
-        if [ -n "$NEW_CTX" ]; then
-            echo "$NEW_CTX" >> $CONTEXTS_FILE
-            echo "$NEW_CTX" > $CTX_FILE
+        # Letters only: the name ends up in sway commands and generated binds,
+        # and "Ir a" parses it back with [a-zA-Z]+
+        if [ -n "$NEW_CTX" ] && [[ ! "$NEW_CTX" =~ ^[a-zA-Z]+$ ]]; then
+            notify-send "Contexto inválido" "Usa solo letras (a-z, A-Z)" -t 2500
+        elif [ -n "$NEW_CTX" ] && grep -qx "$NEW_CTX" "$CONTEXTS_FILE"; then
+            notify-send "Contexto existente" "$NEW_CTX ya existe" -t 2500
+        elif [ -n "$NEW_CTX" ]; then
+            echo "$NEW_CTX" >> "$CONTEXTS_FILE"
+            echo "$NEW_CTX" > "$CTX_FILE"
             generate_binds
             swaymsg "workspace ${NEW_CTX}:01"
             pkill -RTMIN+1 waybar
-            notify-send "Contexto creado" "📁 ${NEW_CTX} → F$(grep -n "$NEW_CTX" $CONTEXTS_FILE | cut -d: -f1)" -t 2000
+            notify-send "Contexto creado" "📁 ${NEW_CTX} → F$(grep -nx "$NEW_CTX" "$CONTEXTS_FILE" | cut -d: -f1)" -t 2000
         fi
         ;;
 esac

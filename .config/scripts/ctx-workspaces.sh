@@ -10,7 +10,7 @@
 # LIFECYCLE: exits when waybar (the parent) is gone, so reloads don't pile up
 # orphaned copies of this script and its `swaymsg -t subscribe` child.
 
-CTX_FILE=/tmp/sway-ctx
+CTX_FILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/sway-ctx"
 PARENT=$PPID
 
 render() {
