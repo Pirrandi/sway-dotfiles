@@ -14,6 +14,8 @@ Configuración personal para **Arch Linux + Sway**. Ligera en recursos, completa
 | Launcher | Wofi |
 | Terminal | Alacritty + tmux |
 | Shell | Zsh + Powerlevel10k (sin Oh My Zsh) |
+| Herramientas de consola | fzf, eza, bat, delta, lazygit, zoxide |
+| Acceso remoto | Tailscale SSH + mosh |
 | Editor | Neovim + LazyVim |
 | Notificaciones | Mako |
 | Bloqueo | Swaylock-effects + swayidle |
@@ -157,7 +159,18 @@ Alacritty abre siempre la sesión persistente `main` de tmux. Si `main` ya está
 - La barra se pone roja (`SSH`) cuando la sesión llega por SSH.
 - `ssh` y `mosh` tiñen de rojo el panel mientras dura la conexión.
 
-**Acceso desde el teléfono**: `./remote-access.sh` instala Tailscale y mosh, activa Tailscale SSH (sshd queda deshabilitado), abre los puertos de mosh solo en `tailscale0` y muestra los pasos para el teléfono y las recomendaciones de seguridad (2FA, Tailnet Lock, ACL con `"action": "check"`).
+### Acceso desde el teléfono
+
+`./remote-access.sh` deja la máquina accesible solo dentro de tu tailnet, sin puertos abiertos a internet ni a la red local. Es idempotente: se puede volver a ejecutar sin problemas.
+
+1. Instala Tailscale y mosh y activa **Tailscale SSH**: la autenticación la hace tu cuenta de Tailscale y `sshd` queda deshabilitado.
+2. Si `systemd-resolved` está activo, enlaza `/etc/resolv.conf` a su stub y configura NetworkManager para usarlo; sin esto MagicDNS no funciona. Respalda el archivo anterior en `/etc/resolv.conf.bak`.
+3. Abre los puertos de mosh (UDP 60000-61000) solo en `tailscale0`, si hay ufw o firewalld.
+4. Muestra los pasos para el teléfono y las recomendaciones de seguridad: 2FA en la cuenta, Tailnet Lock y ACL con `"action": "check"`.
+
+En el teléfono: instala Tailscale con la misma cuenta y un cliente de terminal (Termius, Blink Shell o Termux). Conéctate a `<usuario>@<máquina>` por SSH o mosh, sin contraseña ni llave.
+
+Al entrar por SSH o mosh, `.zshrc` abre directamente la sesión `phone` agrupada con `main` (la crea si no existe), así que no hace falta configurar un comando de inicio en el cliente. `Prefijo` + `d` se desconecta (la sesión sigue viva para retomarla después) y cierra la conexión.
 
 ## Tema e iconos
 
@@ -166,6 +179,7 @@ Todo usa la paleta **carbonfox** ([nightfox.nvim](https://github.com/EdenEast/ni
 La barra de tmux, el prompt y fzf usan iconos de **Nerd Font v3**, así que la terminal tiene que usar una Nerd Font (el instalador trae JetBrainsMono Nerd Font para Alacritty). Desde el teléfono:
 
 - **Termux**: copia una Nerd Font (por ejemplo `JetBrainsMonoNerdFont-Regular.ttf`) a `~/.termux/font.ttf` y ejecuta `termux-reload-settings`.
+- **Termius**: desde la versión 6.3.5 sus fuentes incluyen Nerd Font v3; elige *JetBrains Mono* en la configuración de la terminal.
 - **Blink Shell (iOS)**: agrega una Nerd Font en *Settings → Appearance* y selecciónala.
 
 Sin una Nerd Font los iconos se ven como cuadros o signos de interrogación.
@@ -186,12 +200,15 @@ Sin una Nerd Font los iconos se ven como cuadros o signos de interrogación.
 ```
 .
 ├── install.sh
+├── remote-access.sh  # acceso desde el teléfono (Tailscale SSH + mosh)
 ├── .zshrc / .p10k.zsh
 └── .config/
     ├── sway/         # config + config.d/ (atajos, tema, inicio, entrada)
     ├── waybar/       # barra y estilos
     ├── scripts/      # contextos, capturas, audio, VPN, módulos de la barra
     ├── nvim/         # LazyVim
-    ├── tmux/  alacritty/  wofi/  mako/  swaylock/
+    ├── tmux/         # tema, attach.sh (sesión main), ssh-status.sh (barra roja por SSH)
+    ├── bat/  git/  lazygit/   # carbonfox; git/ solo visual (delta), sin datos de usuario
+    ├── alacritty/  wofi/  mako/  swaylock/
     ├── environment.d/  fontconfig/  MangoHud/
 ```
