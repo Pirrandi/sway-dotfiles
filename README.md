@@ -138,6 +138,7 @@ El prefijo es `Ctrl+A`.
 | `Ctrl+R` | Buscar en el historial (fzf) |
 | `Ctrl+T` | Insertar archivo (fzf) |
 | `Alt+C` | Entrar a un directorio (fzf) |
+| `z <parte>` / `zi` | Saltar a un directorio frecuente / elegirlo con fzf (zoxide) |
 | `↑` / `↓` | Buscar en el historial por lo ya escrito |
 | `Ctrl+←/→` | Moverse por palabras |
 | `Ctrl+Backspace` / `Alt+Backspace` | Borrar la palabra anterior |
@@ -160,7 +161,7 @@ Alacritty abre siempre la sesión persistente `main` de tmux. Si `main` ya está
 
 ## Tema e iconos
 
-Todo usa la paleta **carbonfox** ([nightfox.nvim](https://github.com/EdenEast/nightfox.nvim)): Neovim, Alacritty, tmux, el prompt de Powerlevel10k, el resaltado de zsh y fzf. Fondo `#161616`, texto `#f2f4f8`, acento azul `#78a9ff`, rosa `#ff7eb6`, verde `#25be6a` y rojo `#ee5396`.
+Todo usa la paleta **carbonfox** ([nightfox.nvim](https://github.com/EdenEast/nightfox.nvim)): Neovim, Alacritty, tmux, el prompt de Powerlevel10k, el resaltado de zsh, fzf, bat, delta (diffs de git) y lazygit. Fondo `#161616`, texto `#f2f4f8`, acento azul `#78a9ff`, rosa `#ff7eb6`, verde `#25be6a` y rojo `#ee5396`.
 
 La barra de tmux, el prompt y fzf usan iconos de **Nerd Font v3**, así que la terminal tiene que usar una Nerd Font (el instalador trae JetBrainsMono Nerd Font para Alacritty). Desde el teléfono:
 

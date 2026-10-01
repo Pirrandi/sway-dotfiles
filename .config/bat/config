@@ -1,0 +1,4 @@
+# bat — carbonfox theme (themes/carbonfox.tmTheme; run `bat cache --build` after changes)
+--theme="carbonfox"
+--style="numbers,changes,header"
+--italic-text=always

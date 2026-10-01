@@ -23,10 +23,10 @@ PKGS_BASE=(
   ttf-jetbrains-mono-nerd ttf-font-awesome noto-fonts-emoji noto-fonts-extra
   pipewire wireplumber pavucontrol playerctl blueman
   xdg-desktop-portal xdg-desktop-portal-wlr nwg-look gnome-themes-extra
-  zsh zsh-autosuggestions zsh-history-substring-search
-  git curl wget jq python eza fzf ripgrep fd base-devel
+  zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting
+  git curl wget jq python eza fzf ripgrep fd bat zoxide git-delta base-devel
 )
-PKGS_NVIM=(neovim lazygit tree-sitter-cli gcc make unzip nodejs npm)
+PKGS_NVIM=(neovim lazygit tree-sitter-cli gcc make unzip nodejs npm shellcheck)
 PKGS_UTILS=(swappy cliphist wlsunset)
 PKGS_VPN=(wireguard-tools)
 PKGS_FLATPAK=(flatpak)
@@ -287,6 +287,9 @@ for f in .zshrc .p10k.zsh; do
   [ -f "$DOTFILES_DIR/$f" ] && link "$DOTFILES_DIR/$f" "$HOME/$f" && LINKED+=("$f")
 done
 ok "Symlinks creados: ${LINKED[*]}"
+
+# bat solo ve el tema carbonfox después de reconstruir su caché.
+command -v bat >/dev/null && step "Registrando el tema de bat" bat cache --build
 
 chmod +x "$HOME/.config/scripts/"*.{sh,py} 2>/dev/null || true
 

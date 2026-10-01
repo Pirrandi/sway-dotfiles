@@ -98,6 +98,9 @@ export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --border=rounded --info=i
 # fzf — Ctrl+R history search, Ctrl+T file picker, Alt+C cd
 command -v fzf >/dev/null && source <(fzf --zsh)
 
+# zoxide — z <partial> jumps to a frecent dir, zi opens the fzf picker
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+
 # PATH — typeset -U drops duplicates, so nested shells (tmux panes) don't grow it
 typeset -U path
 export BUN_INSTALL="$HOME/.bun"

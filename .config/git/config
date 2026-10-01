@@ -1,0 +1,30 @@
+# XDG git config — visuals only. User/credentials live in ~/.gitconfig.
+
+[core]
+	# delta if installed, otherwise less
+	pager = "command -v delta >/dev/null 2>&1 && exec delta || exec less -FRX"
+
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
+	syntax-theme = carbonfox
+	file-style = "#78a9ff bold"
+	file-decoration-style = "#3c3c3c ul"
+	hunk-header-style = "file line-number syntax"
+	hunk-header-decoration-style = "#3c3c3c box"
+	minus-style = "syntax #2a0f1c"
+	minus-emph-style = "syntax #4a1730"
+	plus-style = "syntax #0f2a1a"
+	plus-emph-style = "syntax #17462b"
+	line-numbers-minus-style = "#ee5396"
+	line-numbers-plus-style = "#25be6a"
+	line-numbers-zero-style = "#525253"
+	line-numbers-left-style = "#3c3c3c"
+	line-numbers-right-style = "#3c3c3c"
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	colorMoved = default

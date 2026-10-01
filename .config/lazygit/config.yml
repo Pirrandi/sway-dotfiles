@@ -1,0 +1,23 @@
+# lazygit — carbonfox theme
+gui:
+  nerdFontsVersion: "3"
+  border: rounded
+  theme:
+    activeBorderColor: ["#78a9ff", bold]
+    inactiveBorderColor: ["#3c3c3c"]
+    searchingActiveBorderColor: ["#ff7eb6", bold]
+    optionsTextColor: ["#78a9ff"]
+    selectedLineBgColor: ["#2a2a2a"]
+    inactiveViewSelectedLineBgColor: ["#1f1f1f"]
+    cherryPickedCommitFgColor: ["#08bdba"]
+    cherryPickedCommitBgColor: ["#2a2a2a"]
+    markedBaseCommitFgColor: ["#33b1ff"]
+    unstagedChangesColor: ["#ee5396"]
+    defaultFgColor: ["#f2f4f8"]
+git:
+  # lazygit >= 0.65 replaced git.paging with git.diffRenderers.
+  # Runs as GIT_PAGER through the shell: falls back to plain git output without delta.
+  diffRenderers:
+    - name: delta
+      colorArg: always
+      command: command -v delta >/dev/null 2>&1 && exec delta --dark --paging=never || exec cat
