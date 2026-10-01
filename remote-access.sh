@@ -43,6 +43,27 @@ sudo tailscale up --ssh
 ok "Tailscale SSH activo"
 
 # ============================================
+# DNS (MagicDNS)
+# ============================================
+# With systemd-resolved running, NetworkManager must hand DNS to it and
+# /etc/resolv.conf must be its stub; otherwise Tailscale cannot register
+# MagicDNS (https://tailscale.com/s/resolved-nm).
+section "DNS"
+stub=/run/systemd/resolve/stub-resolv.conf
+if ! systemctl is-active --quiet systemd-resolved; then
+  ok "systemd-resolved inactivo; Tailscale gestiona /etc/resolv.conf"
+elif [[ $(readlink -f /etc/resolv.conf) == "$stub" ]]; then
+  ok "/etc/resolv.conf ya apunta a systemd-resolved"
+else
+  printf '[main]\ndns=systemd-resolved\n' |
+    sudo tee /etc/NetworkManager/conf.d/10-dns-systemd-resolved.conf >/dev/null
+  sudo cp -a /etc/resolv.conf /etc/resolv.conf.bak
+  sudo ln -sfn "$stub" /etc/resolv.conf
+  sudo systemctl restart NetworkManager tailscaled
+  ok "DNS delegado a systemd-resolved (respaldo en /etc/resolv.conf.bak)"
+fi
+
+# ============================================
 # OPENSSH
 # ============================================
 section "OpenSSH"
