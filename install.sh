@@ -25,6 +25,7 @@ PKGS_BASE=(
   xdg-desktop-portal xdg-desktop-portal-wlr nwg-look gnome-themes-extra
   zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting
   git curl wget jq python eza fzf ripgrep fd bat zoxide git-delta base-devel
+  earlyoom systembus-notify
 )
 PKGS_NVIM=(neovim lazygit tree-sitter-cli gcc make unzip nodejs npm shellcheck)
 PKGS_UTILS=(swappy cliphist wlsunset)
@@ -292,6 +293,11 @@ ok "Symlinks creados: ${LINKED[*]}"
 command -v bat >/dev/null && step "Registrando el tema de bat" bat cache --build
 
 chmod +x "$HOME/.config/scripts/"*.{sh,py} 2>/dev/null || true
+
+# earlyoom: mata el proceso más pesado (Burp, JVMs) antes de que la RAM llena
+# congele la sesión. Su configuración vive en system/earlyoom.
+step "Configurando earlyoom" sudo install -Dm644 "$DOTFILES_DIR/system/earlyoom" /etc/default/earlyoom
+step "Habilitando earlyoom" sudo systemctl enable --now earlyoom.service
 
 OUTPUT_CONF="$HOME/.config/sway/config.d/output.conf"
 NEW_OUTPUT_CONF=false

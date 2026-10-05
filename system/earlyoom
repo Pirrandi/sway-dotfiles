@@ -1,0 +1,14 @@
+# Installed to /etc/default/earlyoom by install.sh (read by earlyoom.service).
+#
+# Without a userspace OOM killer, filling RAM + zram makes the kernel thrash:
+# it evicts sway/waybar code pages and the session freezes long before the
+# kernel OOM killer fires. earlyoom kills the biggest process first instead.
+#
+# -m/-s   act only when BOTH free RAM and free swap drop below these percents
+# -r 0    no periodic memory report in the journal
+# -n      desktop notification via systembus-notify (started by sway)
+# --prefer  kill JVMs first (Burp Suite and friends)
+# --avoid   never kill the session or the terminals
+# No quotes or spaces in the regexes: systemd word-splits $EARLYOOM_ARGS and
+# passes quotes through literally (hence tmux:.server for "tmux: server").
+EARLYOOM_ARGS="-m 8 -s 10 -r 0 -n --prefer ^(java)$ --avoid ^(sway|swaybg|waybar|Xwayland|alacritty|tmux:.server|systembus-notif)$"
