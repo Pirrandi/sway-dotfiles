@@ -11,7 +11,7 @@ generate_binds() {
     echo "# Contextos - generado automáticamente" > "$BINDS_FILE"
     local i=1
     while IFS= read -r ctx; do
-        echo "bindsym \$mod+F${i} exec bash -c 'echo ${ctx} > $CTX_FILE && swaymsg workspace ${ctx}:01 && pkill -RTMIN+1 waybar && notify-send Contexto ${ctx} -t 1500'" >> "$BINDS_FILE"
+        echo "bindsym \$mod+F${i} exec ~/.config/scripts/ctx-switch.sh ${ctx}" >> "$BINDS_FILE"
         i=$((i+1))
     done < "$CONTEXTS_FILE"
     [ "$1" = "--no-reload" ] || swaymsg reload
@@ -44,11 +44,7 @@ OPTION=$(echo -e "${WS_OPTIONS}${MOVE_OPTIONS}󰐕  Nuevo contexto..." | wofi --
 case "$OPTION" in
     *"Ir a "*)
         WS=$(echo "$OPTION" | grep -oP '[a-zA-Z]+:\d+')
-        CTX_NAME=$(echo "$WS" | cut -d: -f1)
-        echo "$CTX_NAME" > "$CTX_FILE"
-        swaymsg "workspace $WS"
-        pkill -RTMIN+1 waybar
-        notify-send "Contexto" "📁 $WS" -t 1500
+        "$HOME/.config/scripts/ctx-switch.sh" "${WS%%:*}" "${WS#*:}"
         ;;
     *"Mover ventana a "*)
         WS=$(echo "$OPTION" | grep -oP '[a-zA-Z]+:\d+')
