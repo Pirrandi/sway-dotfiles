@@ -1,11 +1,13 @@
 {
     "height": 28,
     "spacing": 8,
+    // With the default fixed-center, waybar keeps a (even empty) center block
+    // pinned mid-bar and caps each side at half the width, which squeezed
+    // sway/language down to "…". sway/window lives on the left for the same reason.
+    "fixed-center": false,
     "modules-left": [
         "custom/ctx-workspaces",
-        "sway/mode"
-    ],
-    "modules-center": [
+        "sway/mode",
         "sway/window"
     ],
     "modules-right": [
@@ -28,7 +30,7 @@
         "format": " {}"
     },
     "sway/language": {
-        "format": "⌨ {short}",
+        "format": "󰌌 {short}",
         "tooltip-format": "{long}",
         "on-click": "~/.config/scripts/toggle-layout.sh"
     },
